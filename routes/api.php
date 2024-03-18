@@ -23,5 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource('users', UserController::class);
-Route::apiResource('remainders', RemainderController::class);
-Route::get('/run-schedules', [ScheduleController::class, 'runSchedule']);
+Route::get('/run-scheduler', [RemainderController::class, 'runScheduler']);

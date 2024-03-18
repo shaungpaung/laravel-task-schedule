@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('remainders', function (Blueprint $table) {
             $table->id();
             $table->string('remainder_message');
-            $table->time('created_time')->now();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            //$table->time('created_time')->default(now());
+            //$table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
