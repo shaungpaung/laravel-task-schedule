@@ -5,6 +5,9 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Models\Remainder;
+use App\Jobs\ReminderJob;
+use App\Services\ReminderService;
+
 use App\Console\Commands\CreateReminderCommand;
 
 class Kernel extends ConsoleKernel
@@ -15,18 +18,34 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        // $schedule->call(function () {
+        //     dispatch(new \App\Jobs\ReminderJob());
+        // })->everyTwoSeconds();
+
+        // $schedule->call(function () {
+        //     $reminder = new Remainder();
+        //     $reminder->remainder_message = 'This is From API'; // Customize the message
+        //     $reminder->save();
+        // })->everyTwoSeconds();
+
+        //schedule->command(CreateReminderCommand::class)->everyTwoMinutes();
+
+        // $schedule->command('message-daily')->everyTwoSeconds()->appendOutputTo('test.log');
+
+        //$schedule->command('message-daily')->everyTwoSeconds();
+
+        //$schedule->job(new ReminderJob())->everyTwoSeconds();
+
         $schedule->call(function () {
-            $reminder = new Remainder();
-            $reminder->remainder_message = 'This is From API'; // Customize the message
-            $reminder->save();
+            $reminderService = app(ReminderService::class);
+            $reminderService->createReminder('This is a reminder message');
         })->everyTwoSeconds();
-        //$schedule->command(CreateReminderCommand::class)->everyTenSeconds();
     }
 
-    protected $commands = [
-        \App\Console\Commands\CreateReminderCommand::class,
-        // other commands...
-    ];
+    // protected $commands = [
+    //     \App\Console\Commands\CreateReminderCommand::class,
+    // ];
     /**
      * Register the commands for the application.
      */
